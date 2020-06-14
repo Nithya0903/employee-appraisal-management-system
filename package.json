@@ -1,0 +1,21 @@
+{
+  "name": "meanapp_intro",
+  "version": "1.0.0",
+  "description": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">",
+  "main": "readme.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Sarthak Bhatt",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jwt-simple": "^0.5.6",
+    "mongoose": "^4.6.8",
+    "nodemon": "^2.0.4",
+    "passport-jwt": "^4.0.0"
+  }
+}
