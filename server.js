@@ -46,17 +46,19 @@ app.post('/api/auth',(req,res)=>{
 	console.log(department,Password)
 	Manager.findOne({deptname: department }, function(err, department) {
 		if (err) { 
-		  return res.sendStatus(401);
+			return res.status(200).json({err:err
+		})
 		}
 		if (!department) {
-		  return res.sendStatus(401);
+			return res.status(200).json({err:"department doesnt exist"
+		})
 		}
 		if (Bcrypt.compareSync(Password,"password")) {
 			console.log(Password,department.password)
 			console.log("password dont match")
-		  return res.sendStatus(401);
-		}
-	
+		  return res.status(200).json({err:"incorrect pass"
+		})
+	}	
 		var token = jwt.encode({
 		department: department.deptname,
 		}, app.get('jwtTokenSecret'));

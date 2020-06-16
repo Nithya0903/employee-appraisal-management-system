@@ -1,20 +1,24 @@
 myApp.controller('empController', function($scope,$route,$routeParams,$http){
 
 	$scope.login = function(){
-		console.log($scope.department.deptname)
-		console.log("after")
-		let data =  {'department': $scope.department.deptname,
-				     'password': $scope.department.password}
+		localStorage.removeItem("department")
 		$http.post('/api/auth',{'department': $scope.department.deptname,
 		'password': $scope.department.password})
 			.then(function(response){
 			//$scope.employees = response.data;
 			var res = response.data;
 			console.log(res);
-			localStorage.setItem("department",res.department.deptname)
+			if(res.err)
+			{
+				$scope.message = res.err;
+			}
+			else{localStorage.setItem("department",res.department.deptname)
 			window.location.href="/#/dashboard"
+
+			}
+			
 		});
-	};
+	}
 	$scope.dashboard = function(){
 		var dept = localStorage.getItem("department");//change and get from localstorage
 		$scope.dept = dept;
