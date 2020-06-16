@@ -12,29 +12,15 @@ myApp.controller('empController', function($scope,$route,$routeParams,$http){
 			var res = response.data;
 			console.log(res);
 			localStorage.setItem("department",res.department.deptname)
-			console.log("storage set")
 			window.location.href="/#/employees"
 		});
 	};
 	$scope.getEmployees = function(){
 		var dept = localStorage.getItem("department");//change and get from localstorage
 		$scope.dept = dept;
-		console.log("inside get employees")
-		let headers = new Headers({'x-access-token':`${dept}`})
-		//headers.append('x-access-token',`${dept}`)
-		console.log("headers",headers['x-access-token']);
-		console.log(headers);
-		const body = {
-			'x-access-token':`${dept}`
-		}
-		$http.get('/api/employees/',body,{headers}).then(function(response){
+		$http.get('/api/employees/').then(function(response){
 			$scope.employees = response.data;
-		}
-		,(response)=>{
-			//console.log(err)
-			if(response.status=== 400)
-			window.location.href="/#/"
-		})
+		});
 	};
 	$scope.showEmployee = function(){
 		var id = $routeParams.id;

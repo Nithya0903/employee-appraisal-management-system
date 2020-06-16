@@ -85,7 +85,6 @@ app.get('/api/employees/:id',jwtauth, function(req, res){
 	});
 });
 app.post('/api/employees',jwtauth, function(req, res){
-	console.log(req.body)
 	Employee.create( req.body, function(err, employees){
 		if(err)
 			res.send(err);

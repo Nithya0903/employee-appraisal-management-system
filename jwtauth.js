@@ -3,11 +3,7 @@ var Manager = require("./models/Manager")
 
 module.exports = function(req, res, next) {
     console.log("in middleware")
-    console.log(req.headers)
-    console.log(req.body)
-    //console.log(localStorage.getItem(department))
     var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['x-access-token'];
-   console.log(token);
     if (token) {
         try {
           var decoded = jwt.decode(token, app.get('jwtTokenSecret'));
@@ -19,13 +15,9 @@ module.exports = function(req, res, next) {
           });
       
         } catch (err) {
-          console.log(err)
           return next();
         }
       } else {
-        console.log("not authenticated")
-
-        return res.status(400).json({err:"not authenticated"});
-
+        next();
       }
 };
