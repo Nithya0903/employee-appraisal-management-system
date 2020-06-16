@@ -53,7 +53,7 @@ app.post('/api/auth',(req,res)=>{
 			return res.status(200).json({err:"department doesnt exist"
 		})
 		}
-		if (Bcrypt.compareSync(Password,"password")) {
+		if (!Bcrypt.compareSync(Password,department.password)) {
 			console.log(Password,department.password)
 			console.log("password dont match")
 		  return res.status(200).json({err:"incorrect pass"
