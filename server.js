@@ -14,7 +14,7 @@ var Employee = mongoose.model('Employee', mongoose.Schema({
 	area:String,
 	status:String,
 	contact:String,
-	salary:String
+	salary:Number
 }));
 var Manager = require("./models/Manager")
 var password = Bcrypt.hashSync("password",salt)
@@ -31,11 +31,13 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/client'));
 app.set('jwtTokenSecret', 'KEYBOARD-CAT');
 app.get('/api/employees',  jwtauth,function(req, res){
-	Employee.find(function(err, employees){
+	Employee.find().sort({'performance':-1})
+	.exec((function(err, employees){
 		if(err)
 			res.send(err);
+			console.log(employees)
 		res.json(employees);
-	});
+	}));
 });
 app.post('/api/auth',(req,res)=>{
 	console.log(req.body)
@@ -70,18 +72,28 @@ app.get('/api/employeesbyDept/:dept', jwtauth,function(req, res){
 	var dept = req.params.dept;
 	console.log(req.params)
 	console.log(dept)
-	Employee.find({dept:dept},function(err, employees){
+	Employee.find({dept:dept}).sort({'performance':-1})
+	.exec((function(err, employees){
 		if(err)
 			res.send(err);
 			console.log(employees)
 		res.json(employees);
-	});
+	}));
 });
 app.get('/api/employees/:id',jwtauth, function(req, res){
 	Employee.findOne({_id:req.params.id}, function(err, employee){
 		if(err)
 			res.send(err);
-		res.json(employee);
+		res.json({name:employee.name,
+			dept:employee.dept,
+			performance:employee.performance,
+			area:employee.area,
+			status:employee.status,
+			contact:employee.contact,
+			salary:employee.salary,
+			totsalary:employee.salary + 100*employee.performance,
+			_id:employee._id
+		});
 	});
 });
 app.post('/api/employees',jwtauth, function(req, res){
