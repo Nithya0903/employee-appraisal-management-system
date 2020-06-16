@@ -15,7 +15,7 @@ module.exports = function(req, res, next) {
           });
       
         } catch (err) {
-          return next();
+           next();
         }
       } else {
         next();

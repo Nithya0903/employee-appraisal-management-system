@@ -100,6 +100,8 @@ app.delete('/api/employees/:id',jwtauth, function(req, res){
 	});
 });
 app.put('/api/employees/:id', jwtauth,function(req, res){
+	console.log("inside modify")
+	console.log(req.body)
 	var query = {
 		name:req.body.name,
 		dept:req.body.dept,

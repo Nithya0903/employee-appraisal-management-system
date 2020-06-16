@@ -53,7 +53,7 @@ myApp.controller('empController', function($scope,$route,$routeParams,$http){
 		$http.post('/api/employees/', {
 			name:$scope.employee.name,
 			dept:dept,
-			performance:$scope.employee.no,
+			performance:$scope.employee.performance,
 			area:$scope.employee.area,
 			status:$scope.employee.status,
 			salary:$scope.employee.salary,
@@ -68,10 +68,11 @@ myApp.controller('empController', function($scope,$route,$routeParams,$http){
 		var dept = localStorage.getItem("department");//change and get from localstorage
 		$scope.dept = dept;
 		$scope.employee.dept = dept;
+		console.log($scope.employee.performance)
 		$http.put('/api/employees/'+ id ,{	
 			name:$scope.employee.name,
 		dept:dept,
-		performance:$scope.employee.no,
+		performance:$scope.employee.performance,
 		area:$scope.employee.area,
 		status:$scope.employee.status,
 		salary:$scope.employee.salary,
