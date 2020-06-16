@@ -1,0 +1,64 @@
+
+   
+  <div ng-init=dashboard()>
+    <nav>
+      <ul class="nav nav-pills pull-left">
+        <li role="presentation" ><a href="#/employees/dashboard"> <span class="glyphicon glyphicon-th-list"></span> </span> {{dept}} Department</a></li>
+      </ul>
+        <ul class="nav nav-pills pull-right">
+          <li role="presentation"><a href="#/employees/create"> 
+          <span class="glyphicon glyphicon-plus"> </span>	Add New Employee</a></li>
+        </ul>
+   
+</nav>
+<br>
+<br>
+<br>
+<h2>Department statistics</h2>
+<table class="table table-bordered table-striped">
+  <thead>
+  <th></th>
+  <th></th>
+  </thead>
+  <tbody>
+  <tr>
+    <td> No of employees :</td>
+    <td>{{no}}</td>
+  </tr>
+  <tr>
+    <td> Percentage of employees with performance rate > 80%</td>
+    <td>{{no1}}</td>
+  </tr>
+  <tr>
+    <td> Percentage of employees with performance rate > 60%</td>
+    <td>{{no2}}</td>
+  </tr>
+  <tr>
+    <td> Percentage of employees with performance rate > 40%</td>
+    <td>{{no3}}</td>
+  </tr> 
+  <tr>
+    <td> Percentage of employees with performance rate below 40%</td>
+    <td>{{no4}}</td>
+  </tr>
+  <tr>
+    <td> Best performing employee</td>
+    <td><a href="#/employees/{{bestemployee._id}}/show" > {{bestemployee.name}}  </a></td>
+  </tr>
+  <tr>
+    <td> Worst performing employee</td>
+    <td><a href="#/employees/{{wemployee._id}}/show" > {{wemployee.name}}  </a></td>
+  </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<h2>Employee list </h2>	
+<ul>
+<li role="presentation" class="active"><a href="#/employees"> </span> Employee List</a></li>
+ <li role="presentation" class="active"><a href="#/employeesbyDept/It">  Department Employee list </span> </a></li>
+  </ul>  
+  <br>
+  <br>   
+  <div>	
+  </div>

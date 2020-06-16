@@ -31,11 +31,13 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/client'));
 app.set('jwtTokenSecret', 'KEYBOARD-CAT');
 app.get('/api/employees',  jwtauth,function(req, res){
-	Employee.find(function(err, employees){
+	Employee.find().sort({'performance':-1})
+	.exec((function(err, employees){
 		if(err)
 			res.send(err);
+			console.log(employees)
 		res.json(employees);
-	});
+	}));
 });
 app.post('/api/auth',(req,res)=>{
 	console.log(req.body)
@@ -70,12 +72,83 @@ app.get('/api/employeesbyDept/:dept', jwtauth,function(req, res){
 	var dept = req.params.dept;
 	console.log(req.params)
 	console.log(dept)
-	Employee.find({dept:dept},function(err, employees){
+	Employee.find({dept:dept}).sort({'performance':-1})
+	.exec((function(err, employees){
 		if(err)
 			res.send(err);
 			console.log(employees)
 		res.json(employees);
-	});
+	}));
+});
+app.get('/api/bestEmp/:dept', jwtauth,function(req, res){
+	var dept = req.params.dept;
+	Employee.find({dept:dept}).sort({'performance':-1}).limit(1)
+	.exec((function(err, employees){
+		if(err)
+			res.send(err);
+			console.log(employees)
+		res.json(employees);
+	}));
+});
+app.get('/api/noOfEmp/:dept', jwtauth,function(req, res){
+	var dept = req.params.dept;
+	Employee.find({dept:dept}).sort({'performance':-1})
+	.exec((function(err, employees){
+		if(err)
+			res.send(err);
+			console.log(employees)
+		res.json(employees);
+	}));
+});
+app.get('/api/noOfEmp1/:dept', jwtauth,function(req, res){
+	var dept = req.params.dept;
+	Employee.find({dept:dept,performance :{$gt:80}}).sort({'performance':-1})
+	.exec((function(err, employees){
+		if(err)
+			res.send(err);
+			console.log(employees)
+		res.json(employees.length);
+	}));
+});
+app.get('/api/noOfEmp2/:dept', jwtauth,function(req, res){
+	var dept = req.params.dept;
+	Employee.find({dept:dept,performance :{$gt:60}}).sort({'performance':-1})
+	.exec((function(err, employees){
+		if(err)
+			res.send(err);
+			console.log(employees)
+		res.json(employees.length);
+	}));
+});
+app.get('/api/noOfEmp3/:dept', jwtauth,function(req, res){
+	var dept = req.params.dept;
+	Employee.find({dept:dept,performance :{$gt:40}}).sort({'performance':-1})
+	.exec((function(err, employees){
+		if(err)
+			res.send(err);
+			console.log(employees)
+		res.json(employees.length);
+	}));
+});
+app.get('/api/noOfEmp4/:dept', jwtauth,function(req, res){
+	var dept = req.params.dept;
+	Employee.find({dept:dept,performance :{$lte:40}}).sort({'performance':-1})
+	.exec((function(err, employees){
+		if(err)
+			res.send(err);
+			console.log(employees)
+		res.json(employees.length);
+	}));
+});
+app.get('/api/wEmp/:dept', jwtauth,function(req, res){
+	var dept = req.params.dept;
+	Employee.find({dept:dept}).sort({'performance':1}).limit(1)
+	.exec((function(err, employees){
+		if(err)
+			res.send(err);
+			console.log(employees)
+		res.json(employees);
+	}));
 });
 app.get('/api/employees/:id',jwtauth, function(req, res){
 	Employee.findOne({_id:req.params.id}, function(err, employee){

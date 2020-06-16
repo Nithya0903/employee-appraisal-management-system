@@ -10,6 +10,10 @@ myApp.config(function($routeProvider){
 		// 	templateUrl:'templates/list.html',
 		// 	controller:'empController'
 		// })
+		.when('/dashboard',{
+			templateUrl:'templates/dashboard.html',
+			controller:'empController'
+		})
 		.when('/employees', {
 			templateUrl:'templates/list.html',
 			controller:'empController'

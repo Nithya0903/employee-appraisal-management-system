@@ -12,8 +12,49 @@ myApp.controller('empController', function($scope,$route,$routeParams,$http){
 			var res = response.data;
 			console.log(res);
 			localStorage.setItem("department",res.department.deptname)
-			window.location.href="/#/employees"
+			window.location.href="/#/dashboard"
 		});
+	};
+	$scope.dashboard = function(){
+		var dept = localStorage.getItem("department");//change and get from localstorage
+		$scope.dept = dept;
+		$http.get('/api/noOfEmp/'+dept).then(function(response){
+		
+			$scope.no = response.data.length;
+			console.log(response.data)
+		});
+		$http.get('/api/noOfEmp1/'+dept).then(function(response){
+		
+			$scope.no1 = (response.data/$scope.no)*100;
+			console.log(response.data)
+		});
+		$http.get('/api/noOfEmp2/'+dept).then(function(response){
+		
+			$scope.no2 = (response.data/$scope.no)*100;
+			console.log(response.data)
+		});
+		$http.get('/api/noOfEmp3/'+dept).then(function(response){
+		
+			$scope.no3 = (response.data/$scope.no)*100;
+			console.log(response.data)
+		});
+		$http.get('/api/noOfEmp4/'+dept).then(function(response){
+		
+			$scope.no4 = (response.data/$scope.no)*100;
+			console.log(response.data)
+		});
+		$http.get('/api/bestEmp/'+dept).then(function(response){
+		
+			$scope.bestemployee = response.data[0];
+			console.log($scope.bestemployee)
+		});
+		$http.get('/api/wEmp/'+dept).then(function(response){
+		
+			$scope.wemployee = response.data[0];
+			console.log($scope.wemployee)
+		});
+
+		
 	};
 	$scope.getEmployees = function(){
 		var dept = localStorage.getItem("department");//change and get from localstorage
